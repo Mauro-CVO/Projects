@@ -3,6 +3,34 @@ import numpy as np
 
 clear = lambda: os.system('clear')
 
+def check(X,X_win):
+  if ((X[0] == X_win or X[1] == X_win or X[2] == X_win) or 
+    (X[0][0] == 'X' and X[1][1] == 'X' and X[2][2] == 'X') or 
+    (X[0][2] == 'X' and X[1][1] == 'X' and X[2][0] == 'X') or
+    (X[0][0] == 'X' and X[1][0] == 'X' and X[2][0] == 'X') or 
+    (X[0][2] == 'X' and X[1][2] == 'X' and X[2][2] == 'X') or
+    (X[0][1] == 'X' and X[1][1] == 'X' and X[2][1] == 'X')):
+    return True
+  else:
+    return False
+
+def row_col():
+  x = int(input("Choose a row (1,2,3): "))
+  y = int(input("Choose a column (1,2,3): "))
+  return [x-1,y-1]
+
+def IA(X):
+  clear()
+  print("IA's turn...")
+  for i in range(len(X)):
+    for j in range(len(X)):
+      if X[i][j] == ' ':
+        X[i][j] = 'O'
+        table(X)
+        input("Press enter to continue...")
+        return
+
+
 def table(a):
   print(f"""
       1   2   3          
@@ -14,33 +42,66 @@ def table(a):
   3   {a[2][0]} | {a[2][1]} | {a[2][2]} 
   
   """)
-
+#########################################################################
 def one():
-  print("""
-       1   2   3
-
-  1      |    | 
-      -------------
-  2      |    |  
-      -------------
-  3      |    |  
-  
-  """)
   X = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
-  row = int(input("Choose a row (1,2,3): "))
-  col = int(input("Choose a column (1,2,3): "))
-  X[row-1][col-1] = 'X'
-  table(X)
-  # table = [[0,0,0],[0,0,0],[0,0,0]]
-  # win = False
-  # while win != True:
 
+  X_win = ['X','X','X']
+  O_win = ['O','O','O']
+  win = False
 
+  while win == False:
+    print("Your turn...")
+    table(X)
+    coords = row_col()
+    X[coords[0]][coords[1]] = 'X'
+    clear()
+    table(X)
+    win = check(X,X_win)
+    if win == True: 
+      clear()
+      table(X)
+      print(""" 
+      You Win!!!
+      """)
+      ans = input("Play again (y/n): ")
+      if ans == 'y':
+        run()
+      else:
+        clear()
+        input(''' 
+        Goodbye
+        
+        Press enter to continue... ''')
+      break
+    input("Press enter to continue...")
+    IA(X)
+    clear()
+    loose = check(X,O_win)
+    if loose == True:
+      clear()
+      table(X)
+      ans = input('''
+      You loose :(
 
+      Try again (y/n):
+      ''')
+      if ans == 'y':
+        run()
+      else:
+        clear()
+        input(''' 
+        Goodbye
+        
+        Press enter to continue... ''')
+      break
+############################################################################
 
 def play(players):
   if players == 1:
     one()
+  elif players == 2:
+    two()
     
 
 def selection():
