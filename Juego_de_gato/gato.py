@@ -42,7 +42,84 @@ def table(a):
   3   {a[2][0]} | {a[2][1]} | {a[2][2]} 
   
   """)
-#########################################################################
+
+#####################-----TWO PLAYERS CODE-------#############################
+def two():
+  clear()
+  X = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
+  X_win = ['X','X','X']
+  O_win = ['O','O','O']
+  x_win = False
+  o_win = False
+  i = 0
+
+  while x_win == False or o_win == False or i == 10:
+    i += 1
+    if i == 10:
+      print("""
+      It's a tie
+      """)
+      ans = input("Play again (y/n): ")
+      if ans == 'y':
+        two()
+      else:
+        clear()
+        input(''' 
+        Goodbye
+
+        Press enter to continue... ''')
+
+    print("      Player's one turn...")
+    table(X)
+    coords = row_col()
+    X[coords[0]][coords[1]] = 'X'
+    #clear()
+    x_win = check(X,X_win)
+    if x_win == True: 
+      clear()
+      table(X)
+      print(""" 
+      Player one wins!!!
+      """)
+      ans = input("Play again (y/n): ")
+      if ans == 'y':
+        two()
+      else:
+        clear()
+        input(''' 
+        Goodbye
+        
+        Press enter to continue... ''')
+      break
+    input("Press enter to continue...")
+    clear()
+    print("      Player's two turn...")
+    table(X)
+    coords = row_col()
+    X[coords[0]][coords[1]] = 'O'
+    clear()
+    o_win = check(X,X_win)
+    if o_win == True:
+      clear()
+      table(X)
+      ans = input('''
+      Player two wins!!!
+
+      Try again (y/n):
+      ''')
+      if ans == 'y':
+        two()
+      else:
+        clear()
+        input(''' 
+        Goodbye
+        
+        Press enter to continue... ''')
+      break
+      input("Press enter to continue...")
+##--------------------------------------------------------------------------## 
+
+#####################-----ONE PLAYER CODE-------#############################
 def one():
   X = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
 
@@ -95,7 +172,7 @@ def one():
         
         Press enter to continue... ''')
       break
-############################################################################
+##--------------------------------------------------------------------------## 
 
 def play(players):
   if players == 1:
