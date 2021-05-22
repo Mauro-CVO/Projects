@@ -1,5 +1,4 @@
 import os
-import numpy as np
 
 clear = lambda: os.system('clear')
 
@@ -51,11 +50,13 @@ def two():
   O_win = ['O','O','O']
   x_win = False
   o_win = False
-  i = 0
+  i = -1
 
-  while x_win == False or o_win == False or i == 10:
+  while x_win == False or o_win == False or i == 9:
+
     i += 1
-    if i == 10:
+    if i == 9:
+      table(X)
       print("""
       It's a tie
       """)
@@ -68,6 +69,8 @@ def two():
         Goodbye
 
         Press enter to continue... ''')
+        break
+    #print(f"i = {i}")
 
     print("      Player's one turn...")
     table(X)
@@ -91,14 +94,34 @@ def two():
         
         Press enter to continue... ''')
       break
+
     input("Press enter to continue...")
     clear()
+
+    i += 1
+    if i == 9:
+      table(X)
+      print("""
+      It's a tie
+      """)
+      ans = input("Play again (y/n): ")
+      if ans == 'y':
+        two()
+      else:
+        clear()
+        input(''' 
+        Goodbye
+
+        Press enter to continue... ''')
+        break
+    #print(f"i = {i}")
     print("      Player's two turn...")
     table(X)
     coords = row_col()
     X[coords[0]][coords[1]] = 'O'
-    clear()
-    o_win = check(X,X_win)
+    #clear()
+    o_win = check(X,O_win)
+
     if o_win == True:
       clear()
       table(X)
@@ -116,7 +139,10 @@ def two():
         
         Press enter to continue... ''')
       break
-      input("Press enter to continue...")
+    input("Press enter to continue...")
+    clear()
+
+    
 ##--------------------------------------------------------------------------## 
 
 #####################-----ONE PLAYER CODE-------#############################
