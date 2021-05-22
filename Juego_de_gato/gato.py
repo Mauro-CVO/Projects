@@ -228,7 +228,7 @@ def begin():
    |   | | |   | |
     ---  |  ---  |
 
-  Press enter to star ...
+  Press enter to start ...
   """)
   input()
 
