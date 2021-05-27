@@ -2,3 +2,5 @@ venv/
 Tweets_analisis/credentials.py
 Tweets_analisis/__pycache__
 t-bot/
+BTC_bot/__pycache__
+BTC_bot/api_key.py
