@@ -14,9 +14,10 @@ def count_words(arr):
     total = np.sum(np.array(lst))
     return total
 
-def run():
+def classify(day):
     top_words = {}
-    tweets = open('./tweets.txt', encoding='utf-8')
+    file = 'tweets(05-'+day+').txt'
+    tweets = open(file, encoding='utf-8')
     for line in tweets:
         words = line.strip().lower().split()
         for word in words:
@@ -24,14 +25,21 @@ def run():
                 top_words[word] = top_words.get(word,0) + 1
     most_used_words = sorted(top_words, key=top_words.get, reverse=True)
 
+
+    # count = 0
+    # for word in most_used_words:
+    #     if count < 20: #and word.startswith('@'):
+    #         print(top_words[word], word)
+    #         count += 1
+    #         print('-'*40)
+
     # count_u = 0
     # for word in most_used_words:
-    #     if count_u < 10 and word.startswith('@'):
+    #     if count_u < 20 and word.startswith('@'):
     #         print(top_words[word], word)
     #         count_u += 1
-    #         print('*'*40)
+    #         print('-'*40)
     
-
     # count = 0
     venta = []
     compra = []
@@ -46,9 +54,10 @@ def run():
     # print('compra:', compra)
     total_venta = count_words(venta)
     total_compra = count_words(compra)
-    print(total_venta)
-    print(total_compra)
+    # print('total_venta: ',total_venta)
+    # print('total_compra: ',total_compra)
+    return [total_venta,total_compra]
 
 
 if __name__ == '__main__':
-    run()
+    classify()
