@@ -18,28 +18,32 @@ def search(query,language):
         month = '0'+str(today.month)
 
     today = str(today.year)+'-'+month+'-'+str(today.day)
-
+    day = 'tweets(05-'+str(today.day)+').txt'
     id = None
+    # id = 1396196996965408777
     count = 0
     while count <= 2000:
         tweets = api.search(q=query, lang=language, tweet_mode='extended', 
-        max_id=id,sinse='2021-05-17',until='2021-05-18' )
+        max_id=id ,since=today)#,until='2021-05-25')
         for tweet in tweets:
             if tweet.full_text.startswith('RT'):
                 count += 1
                 continue
-            f = open('./tweets.txt', 'a', encoding='utf-8')
+            f = open(day, 'a', encoding='utf-8')
             f.write(tweet.full_text + '\n')
             f.close
             count += 1
+            
         id = tweet.id
         print(count)
         print(id)
-        time.sleep(1)
+        time.sleep(7)
 
 def main():
-    a = input('Tema:')
-    b = input('Lenguage: ')
+    # a = input('Tema:')
+    # b = input('Lenguage: ')
+    a = 'bitcoin'
+    b = 'es'
     search(a,b)
 
 if __name__ == '__main__':
